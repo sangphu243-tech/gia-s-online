@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lê Hoàng Phú Sang – Gia Sư Python | SQL | Tiếng Anh APTIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --primary: #0e4d92;
+    --primary-light: #1a6dc8;
+    --accent: #f97316;
+    --accent2: #22c55e;
+    --dark: #0f172a;
+    --dark2: #1e293b;
+    --mid: #334155;
+    --soft: #64748b;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --section-bg: #f1f5f9;
+    --python: #3b82f6;
+    --sql: #8b5cf6;
+    --english: #059669;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(14, 77, 146, 0.97);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 18px; color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 6px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none; font-size: 13.5px; font-weight: 500;
+    padding: 6px 12px; border-radius: 6px;
+    transition: all .2s;
+  }
+  .nav-links a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0e4d92 0%, #1a6dc8 40%, #0e7490 100%);
+    display: flex; align-items: center; justify-content: center;
+    padding: 80px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-inner {
+    max-width: 1100px; width: 100%;
+    display: flex; align-items: center; gap: 60px;
+    position: relative; z-index: 1;
+  }
+  .hero-avatar {
+    width: 180px; height: 180px; flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f97316, #fbbf24);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 56px; font-weight: 700; color: #fff;
+    border: 4px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 0 8px rgba(255,255,255,0.1);
+  }
+    .hero-avatar img{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+}
+  
+  
+  .hero-text h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700; color: #fff; line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .hero-text .subtitle {
+    font-size: 16px; color: rgba(255,255,255,0.75);
+    margin-bottom: 20px; font-weight: 400;
+  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+  .hero-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; padding: 6px 14px;
+    border-radius: 20px; font-size: 13px; font-weight: 500;
+  }
+  .hero-badge.orange { background: rgba(249,115,22,0.3); border-color: rgba(249,115,22,0.5); }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #ea6a0a; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: #fff;
+    padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px;
+    text-decoration: none; border: 1.5px solid rgba(255,255,255,0.5); cursor: pointer;
+    transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.15); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 80px 5%; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+    padding: 4px 12px; border-radius: 4px; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 3vw, 36px); font-weight: 700;
+    color: var(--dark); margin-bottom: 12px;
+  }
+  .section-sub { font-size: 15px; color: var(--soft); max-width: 600px; line-height: 1.7; margin-bottom: 48px; }
+  .divider { width: 48px; height: 3px; border-radius: 2px; margin: 16px 0 48px; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  #about .tag { background: #dbeafe; color: #1d4ed8; }
+  #about .divider { background: var(--primary); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+  }
+  .about-card {
+    background: var(--section-bg); border-radius: 16px; padding: 28px;
+    border: 1px solid var(--border);
+  }
+  .about-card h3 { font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 16px; }
+  .info-row { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+  .info-row i { color: var(--primary); width: 18px; margin-top: 2px; font-size: 14px; }
+  .info-row span { font-size: 14px; color: var(--mid); line-height: 1.5; }
+  .info-row strong { color: var(--dark); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--section-bg); }
+  #skills .tag { background: #ede9fe; color: #6d28d9; }
+  #skills .divider { background: var(--sql); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .skill-card {
+    background: var(--white); border-radius: 16px; padding: 32px 24px;
+    border: 1px solid var(--border); transition: all .25s;
+    text-align: center;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .skill-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin: 0 auto 16px; font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .skill-icon.py { background: #dbeafe; color: var(--python); }
+  .skill-icon.sql { background: #ede9fe; color: var(--sql); }
+  .skill-icon.en { background: #d1fae5; color: var(--english); }
+  .skill-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .skill-card p { font-size: 13.5px; color: var(--soft); line-height: 1.6; margin-bottom: 16px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .tag-pill {
+    font-size: 12px; font-weight: 500; padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .tag-pill.blue { background: #dbeafe; color: #1e40af; }
+  .tag-pill.purple { background: #ede9fe; color: #5b21b6; }
+  .tag-pill.green { background: #d1fae5; color: #065f46; }
+
+  /* ── APTIS ── */
+  #aptis { background: var(--white); }
+  #aptis .tag { background: #d1fae5; color: #065f46; }
+  #aptis .divider { background: var(--english); }
+  .aptis-main {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start;
+  }
+  .aptis-overview {
+    background: linear-gradient(135deg, #059669, #0891b2);
+    border-radius: 20px; padding: 32px; color: #fff; text-align: center;
+  }
+  .aptis-score-big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px; font-weight: 800; line-height: 1; margin-bottom: 4px;
+  }
+  .aptis-overview .score-label { font-size: 14px; opacity: 0.85; margin-bottom: 16px; }
+  .aptis-overview .level-badge {
+    background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 8px; padding: 8px 16px; font-size: 16px; font-weight: 700;
+    display: inline-block; margin-bottom: 20px;
+  }
+  .aptis-note { font-size: 13px; opacity: 0.8; line-height: 1.6; }
+  .skills-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .skill-bar-card {
+    background: var(--section-bg); border-radius: 14px; padding: 20px;
+    border: 1px solid var(--border);
+  }
+  .skill-bar-card .label {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .skill-bar-card .label span:first-child { font-size: 14px; font-weight: 600; color: var(--mid); }
+  .skill-bar-card .score-display { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; }
+  .bar-track {
+    height: 10px; background: var(--border); border-radius: 6px; overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 6px; transition: width 1s ease; }
+  .bar-sub { font-size: 12px; color: var(--soft); margin-top: 6px; }
+
+  /* Reading perfect */
+  .perfect-badge {
+    display: inline-block; background: #fef08a; color: #713f12;
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-left: 6px;
+  }
+
+  /* ── COURSES ── */
+  #courses { background: var(--section-bg); }
+  #courses .tag { background: #ffedd5; color: #c2410c; }
+  #courses .divider { background: var(--accent); }
+  .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .course-card {
+    background: var(--white); border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border); transition: all .25s;
+  }
+  .course-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
+  .course-header {
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .course-cat {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .course-card h3 { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .course-card .course-desc { font-size: 13px; color: var(--soft); line-height: 1.6; }
+  .course-body { padding: 20px 24px; }
+  .course-list { list-style: none; }
+  .course-list li {
+    font-size: 13.5px; color: var(--mid); padding: 6px 0;
+    border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px;
+  }
+  .course-list li:last-child { border-bottom: none; }
+  .course-list li::before { content: '✓'; color: var(--accent2); font-weight: 700; flex-shrink: 0; }
+  .course-footer {
+    padding: 16px 24px;
+    background: var(--section-bg);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .price-tag { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; }
+  .price-tag .per { font-size: 13px; font-weight: 400; color: var(--soft); }
+  .enroll-btn {
+    background: var(--primary); color: #fff;
+    padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: background .2s;
+  }
+  .enroll-btn:hover { background: var(--primary-light); }
+
+  /* ── PAYMENT ── */
+  #payment { background: var(--white); }
+  #payment .tag { background: #fef9c3; color: #713f12; }
+  #payment .divider { background: #eab308; }
+  .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .payment-card {
+    background: var(--section-bg); border-radius: 16px; padding: 32px;
+    border: 1px solid var(--border); text-align: center;
+  }
+  .payment-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+  .payment-card p { font-size: 13px; color: var(--soft); margin-bottom: 24px; }
+  .bank-info { text-align: left; }
+  .bank-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .bank-row:last-child { border-bottom: none; }
+  .bank-row .bl { color: var(--soft); font-weight: 400; }
+  .bank-row .br { color: var(--dark); font-weight: 600; }
+  .bank-logo {
+    width: 100%; max-width: 160px; height: 48px;
+    background: linear-gradient(135deg, #003087, #0070ba);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 18px; margin: 0 auto 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 1px;
+  }
+  .bank-logo.vcb { background: linear-gradient(135deg, #006834, #009a44); }
+  .bank-logo.mb { background: linear-gradient(135deg, #7b2d8b, #a855f7); }
+  .qr-placeholder {
+    width: 140px; height: 140px; margin: 0 auto 16px;
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px;
+  }
+  .qr-placeholder i { font-size: 48px; color: var(--primary); }
+  .qr-placeholder span { font-size: 12px; color: var(--soft); }
+  .copy-btn {
+    background: var(--primary); color: #fff;
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    border: none; cursor: pointer; width: 100%; transition: background .2s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+  }
+  .copy-btn:hover { background: var(--primary-light); }
+  .copy-btn.copied { background: var(--accent2); }
+  .payment-note {
+    background: #fef9c3; border: 1px solid #fde047; border-radius: 10px;
+    padding: 16px 20px; margin-top: 32px; font-size: 13.5px; color: #713f12; line-height: 1.6;
+  }
+  .payment-note i { margin-right: 6px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--section-bg); }
+  #contact .tag { background: #dbeafe; color: #1d4ed8; }
+  #contact .divider { background: var(--primary); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .contact-list { display: flex; flex-direction: column; gap: 16px; }
+  .contact-item {
+    background: var(--white); border-radius: 14px; padding: 20px 24px;
+    border: 1px solid var(--border); display: flex; align-items: center; gap: 16px;
+    text-decoration: none; transition: all .2s;
+  }
+  .contact-item:hover { border-color: var(--primary); transform: translateX(4px); }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .contact-icon.zalo { background: #e0f2fe; color: #0ea5e9; }
+  .contact-icon.fb { background: #dbeafe; color: #2563eb; }
+  .contact-icon.gmail { background: #fee2e2; color: #dc2626; }
+  .contact-icon.phone { background: #d1fae5; color: #059669; }
+  .contact-text strong { font-size: 14px; font-weight: 600; color: var(--dark); display: block; margin-bottom: 2px; }
+  .contact-text span { font-size: 13px; color: var(--soft); }
+  .contact-form-card {
+    background: var(--white); border-radius: 16px; padding: 32px;
+    border: 1px solid var(--border);
+  }
+  .contact-form-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 24px; color: var(--dark); }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { font-size: 13px; font-weight: 600; color: var(--mid); display: block; margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 14px; font-family: inherit; color: var(--dark);
+    background: var(--bg); transition: border-color .2s; outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--primary);
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .submit-btn {
+    width: 100%; background: var(--primary); color: #fff;
+    padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    border: none; cursor: pointer; transition: background .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .submit-btn:hover { background: var(--primary-light); }
+  .success-msg {
+    display: none; background: #d1fae5; border: 1px solid #a7f3d0;
+    border-radius: 8px; padding: 12px 16px; font-size: 13.5px; color: #065f46;
+    margin-top: 12px; text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.6);
+    padding: 32px 5%; text-align: center; font-size: 13px;
+  }
+  footer strong { color: rgba(255,255,255,0.9); }
+  footer .footer-links { display: flex; justify-content: center; gap: 24px; margin-top: 12px; flex-wrap: wrap; }
+  footer .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 12px; }
+  footer .footer-links a:hover { color: rgba(255,255,255,0.85); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero-inner { flex-direction: column; text-align: center; }
+    .hero-badges { justify-content: center; }
+    .hero-cta { justify-content: center; }
+    .about-grid, .aptis-main, .payment-grid, .contact-grid { grid-template-columns: 1fr; }
+    .skills-grid, .courses-grid { grid-template-columns: 1fr; }
+    .skills-breakdown { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ───── NAV ───── -->
+<nav>
+  <div class="nav-logo">Phú <span>Sang</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">Giới thiệu</a></li>
+    <li><a href="#skills">Kỹ năng</a></li>
+    <li><a href="#aptis">APTIS</a></li>
+    <li><a href="#courses">Khóa học</a></li>
+    <li><a href="#payment">Thanh toán</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+</nav>
+
+<!-- ───── HERO ───── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-avatar">
+      <img src="avatar.jpg" alt="lê hoàng phú sang">
+  </div>  
+    <div class="hero-text">
+      <div style="font-size:13px;color:rgba(120,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Gia sư · Lập trình & Tiếng Anh</div>
+      <h1>LÊ HOÀNG PHÚ SANG</h1>
+      <div class="subtitle">Trường Đại học Greenwich Việt Nam</div>
+      <div class="hero-badges">
+        <span class="hero-badge">🐍 Python Developer</span>
+        <span class="hero-badge">🗃️ SQL Specialist</span>
+        <span class="hero-badge orange">🇬🇧 APTIS B2 – 147/200</span>
+        <span class="hero-badge">📚 Reading 50/50</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#courses" class="btn-primary"><i class="fa-solid fa-book-open"></i> Xem Khóa Học</a>
+        <a href="#contact" class="btn-outline"><i class="fa-solid fa-paper-plane"></i> Liên Hệ Ngay</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── ABOUT ───── -->
+<section id="about">
+  <div class="section-inner">
+    <span class="section-tag tag" style="background:#dbeafe;color:#1d4ed8;">Về tôi</span>
+    <h2 class="section-title">Thông Tin Cá Nhân</h2>
+    <div class="divider" style="background:var(--primary)"></div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3><i class="fa-solid fa-user-graduate"></i> &nbsp;Học vấn & Bằng cấp</h3>
+        <div class="info-row"><i class="fa-solid fa-school"></i><span><strong>Trường Đại học Greenwich Việt Nam</strong><br>Sinh viên ngành Công nghệ thông tin</span></div>
+        <div class="info-row"><i class="fa-solid fa-certificate"></i><span><strong>APTIS B2 Overall</strong> – 147/200<br><em>British Council chứng nhận</em></span></div>
+        <div class="info-row"><i class="fa-solid fa-code"></i><span>Chuyên sâu: <strong>Python</strong> & <strong>SQL</strong></span></div>
+        <div class="info-row"><i class="fa-solid fa-chalkboard-user"></i><span>Kinh nghiệm dạy học: Lập trình cơ bản đến nâng cao & Tiếng Anh học thuật</span></div>
+      </div>
+      <div class="about-card">
+        <h3><i class="fa-solid fa-bullseye"></i> &nbsp;Tôi dạy gì?</h3>
+        <div class="info-row"><i class="fa-brands fa-python" style="color:#3b82f6"></i><span><strong>Python</strong> – Từ cơ bản đến ứng dụng thực tế: phân tích dữ liệu, automation, OOP</span></div>
+        <div class="info-row"><i class="fa-solid fa-database" style="color:#8b5cf6"></i><span><strong>SQL</strong> – Truy vấn, thiết kế CSDL, tối ưu hóa câu lệnh, MySQL / PostgreSQL</span></div>
+        <div class="info-row"><i class="fa-solid fa-language" style="color:#059669"></i><span><strong>APTIS B1 / B2</strong> – Luyện thi đầu vào đại học & đầu vào học thạc sĩ</span></div>
+        <div class="info-row"><i class="fa-solid fa-star" style="color:#f59e0b"></i><span>Phương pháp: thực hành theo dự án, luyện đề thực tế, theo dõi tiến độ cá nhân</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── SKILLS ───── -->
+<section id="skills">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#ede9fe;color:#6d28d9;">Kỹ năng</span>
+    <h2 class="section-title">Chuyên Môn Giảng Dạy</h2>
+    <div class="divider" style="background:#8b5cf6"></div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-icon py">Py</div>
+        <h3 style="color:var(--python)">Python</h3>
+        <p>Dạy lập trình Python từ nền tảng đến ứng dụng thực tiễn trong phân tích dữ liệu và tự động hóa công việc.</p>
+        <div class="skill-tags">
+          <span class="tag-pill blue">Biến & kiểu dữ liệu</span>
+          <span class="tag-pill blue">Vòng lặp & điều kiện</span>
+          <span class="tag-pill blue">Hàm & OOP</span>
+          <span class="tag-pill blue">Pandas / NumPy</span>
+          <span class="tag-pill blue">File & Exception</span>
+          <span class="tag-pill blue">Automation</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon sql">SQL</div>
+        <h3 style="color:var(--sql)">SQL & Database</h3>
+        <p>Thiết kế và truy vấn cơ sở dữ liệu hiệu quả. Từ SELECT cơ bản đến JOIN phức tạp và tối ưu hiệu suất.</p>
+        <div class="skill-tags">
+          <span class="tag-pill purple">SELECT / WHERE</span>
+          <span class="tag-pill purple">JOIN (INNER/LEFT/RIGHT)</span>
+          <span class="tag-pill purple">GROUP BY / HAVING</span>
+          <span class="tag-pill purple">Subquery</span>
+          <span class="tag-pill purple">Stored Procedure</span>
+          <span class="tag-pill purple">MySQL / PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon en">EN</div>
+        <h3 style="color:var(--english)">Tiếng Anh APTIS</h3>
+        <p>Ôn luyện 4 kỹ năng APTIS B1/B2 bài bản. Chiến lược làm bài, luyện đề thật, mục tiêu đầu vào ĐH & cao học.</p>
+        <div class="skill-tags">
+          <span class="tag-pill green">Listening (38/50)</span>
+          <span class="tag-pill green">Reading (50/50 ✦)</span>
+          <span class="tag-pill green">Speaking (31/50)</span>
+          <span class="tag-pill green">Writing (28/50)</span>
+          <span class="tag-pill green">Từ vựng học thuật</span>
+          <span class="tag-pill green">Grammar B2</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── APTIS SCORES ───── -->
+<section id="aptis">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#d1fae5;color:#065f46;">Chứng chỉ</span>
+    <h2 class="section-title">Kết Quả APTIS B2</h2>
+    <div class="divider" style="background:#059669"></div>
+    <div class="aptis-main">
+      <div class="aptis-overview">
+        <div style="font-size:13px;opacity:.8;margin-bottom:4px;">OVERALL SCORE</div>
+        <div class="aptis-score-big">147</div>
+        <div class="score-label">/ 200 điểm</div>
+        <div class="level-badge">🎓 APTIS B2</div>
+        <div class="aptis-note">
+          Chứng chỉ British Council<br>
+          <strong style="color:#fff;">B2 Overall</strong> – đủ điều kiện đầu vào thạc sĩ tại nhiều trường đại học Việt Nam
+        </div>
+      </div>
+      <div class="skills-breakdown">
+
+        <div class="skill-bar-card">
+          <div class="label">
+            <span>🎧 Listening</span>
+            <span class="score-display" style="color:#0ea5e9;">38<span style="font-size:13px;font-weight:400;color:var(--soft)">/50</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:76%;background:#0ea5e9;"></div></div>
+          <div class="bar-sub">76% – Mức tốt · B2</div>
+        </div>
+
+        <div class="skill-bar-card">
+          <div class="label">
+            <span>📖 Reading <span class="perfect-badge">Perfect!</span></span>
+            <span class="score-display" style="color:#059669;">50<span style="font-size:13px;font-weight:400;color:var(--soft)">/50</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:#059669;"></div></div>
+          <div class="bar-sub">100% – Điểm tuyệt đối ⭐</div>
+        </div>
+
+        <div class="skill-bar-card">
+          <div class="label">
+            <span>🗣️ Speaking</span>
+            <span class="score-display" style="color:#f97316;">31<span style="font-size:13px;font-weight:400;color:var(--soft)">/50</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:62%;background:#f97316;"></div></div>
+          <div class="bar-sub">62% – Đang phát triển · B1+</div>
+        </div>
+
+        <div class="skill-bar-card">
+          <div class="label">
+            <span>✍️ Writing</span>
+            <span class="score-display" style="color:#8b5cf6;">28<span style="font-size:13px;font-weight:400;color:var(--soft)">/50</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:56%;background:#8b5cf6;"></div></div>
+          <div class="bar-sub">56% – Cần luyện thêm · B1</div>
+        </div>
+
+      </div>
+    </div>
+    <div style="margin-top:28px;background:#f0fdf4;border:1px solid #a7f3d0;border-radius:12px;padding:18px 24px;font-size:13.5px;color:#065f46;line-height:1.7;">
+      <i class="fa-solid fa-circle-info"></i> &nbsp;<strong>Điểm mạnh nổi bật:</strong> Reading đạt <strong>50/50 tuyệt đối</strong> – thế mạnh về từ vựng, ngữ pháp và kỹ năng đọc hiểu học thuật. Đây là nền tảng vững chắc để hướng dẫn học viên đạt B1/B2.
+    </div>
+  </div>
+</section>
+
+<!-- ───── COURSES ───── -->
+<section id="courses">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#ffedd5;color:#c2410c;">Khóa học</span>
+    <h2 class="section-title">Các Khóa Học Đang Mở</h2>
+    <div class="divider" style="background:var(--accent)"></div>
+    <div class="courses-grid">
+
+      <!-- Python -->
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-cat" style="color:var(--python)">🐍 Lập trình Python</div>
+          <h3>Python Cơ Bản → Nâng Cao</h3>
+          <p class="course-desc">Học Python thực chiến, từ cú pháp cơ bản đến phân tích dữ liệu và automation.</p>
+        </div>
+        <div class="course-body">
+          <ul class="course-list">
+            <li>Biến, kiểu dữ liệu, input/output</li>
+            <li>Điều kiện, vòng lặp, hàm</li>
+            <li>Lập trình hướng đối tượng (OOP)</li>
+            <li>Xử lý file, try/except</li>
+            <li>Thư viện Pandas, NumPy</li>
+            <li>Dự án thực tế cuối khóa</li>
+          </ul>
+        </div>
+        <div class="course-footer">
+          <div class="price-tag" style="color:var(--python)">150K <span class="per">/buổi</span></div>
+          <a href="#contact" class="enroll-btn" style="background:var(--python)">Đăng ký</a>
+        </div>
+      </div>
+
+      <!-- SQL -->
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-cat" style="color:var(--sql)">🗃️ Cơ sở dữ liệu SQL</div>
+          <h3>SQL Từ Zero Đến Hero</h3>
+          <p class="course-desc">Thành thạo truy vấn SQL, thiết kế CSDL và tối ưu hóa cho dự án thực tế.</p>
+        </div>
+        <div class="course-body">
+          <ul class="course-list">
+            <li>SELECT, WHERE, ORDER BY</li>
+            <li>JOIN (INNER, LEFT, RIGHT, FULL)</li>
+            <li>GROUP BY, HAVING, Aggregate</li>
+            <li>Subquery & CTE</li>
+            <li>Thiết kế bảng, khóa ngoại</li>
+            <li>MySQL thực hành trên Workbench</li>
+          </ul>
+        </div>
+        <div class="course-footer">
+          <div class="price-tag" style="color:var(--sql)">150K <span class="per">/buổi</span></div>
+          <a href="#contact" class="enroll-btn" style="background:var(--sql)">Đăng ký</a>
+        </div>
+      </div>
+
+      <!-- English -->
+      <div class="course-card">
+        <div class="course-header">
+          <div class="course-cat" style="color:var(--english)">🇬🇧 Tiếng Anh APTIS</div>
+          <h3>APTIS B1 / B2 – Luyện Thi</h3>
+          <p class="course-desc">Luyện thi APTIS bài bản cho đầu vào đại học (B1) và đầu vào học thạc sĩ (B2).</p>
+        </div>
+        <div class="course-body">
+          <ul class="course-list">
+            <li>Cấu trúc đề thi APTIS chi tiết</li>
+            <li>Luyện Reading – chiến lược đọc nhanh</li>
+            <li>Luyện Listening – nghe hiểu hội thoại</li>
+            <li>Speaking – trả lời theo chủ đề</li>
+            <li>Writing – câu ngắn & đoạn văn</li>
+            <li>Luyện đề thật British Council</li>
+          </ul>
+        </div>
+        <div class="course-footer">
+          <div class="price-tag" style="color:var(--english)">120K <span class="per">/buổi</span></div>
+          <a href="#contact" class="enroll-btn" style="background:var(--english)">Đăng ký</a>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top:24px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 24px;font-size:13.5px;color:var(--mid);line-height:1.8;">
+      <i class="fa-solid fa-circle-info" style="color:var(--accent)"></i> &nbsp;
+      <strong>Lưu ý:</strong> Học 1 kèm 1 hoặc nhóm nhỏ (2–4 người). Có thể học online qua discord/Google Meet hoặc offline tại TP.HCM. Liên hệ để tư vấn lộ trình phù hợp.
+    </div>
+  </div>
+</section>
+
+<!-- ───── PAYMENT ───── -->
+<section id="payment">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#fef9c3;color:#713f12;">Thanh toán</span>
+    <h2 class="section-title">Thông Tin Thanh Toán</h2>
+    <div class="divider" style="background:#eab308"></div>
+    <div class="payment-grid">
+
+      <div class="payment-card">
+        <div class="bank-logo tcb">TECHCOMBANK</div>
+        <h3>Ngân hàng techcombank</h3>
+        <p>Chuyển khoản nội địa, nhận ngay</p>
+        <div class="bank-info">
+          <div class="bank-row"><span class="bl">Chủ tài khoản</span><span class="br">LÊ HOÀNG PHÚ SANG</span></div>
+          <div class="bank-row"><span class="bl">Số tài khoản</span><span class="br" id="tcb-acc">200519191919</span></div>
+          <div class="bank-row"><span class="bl">Chi nhánh</span><span class="br">TP. Hồ Chí Minh</span></div>
+          <div class="bank-row"><span class="bl">Nội dung CK</span><span class="br">[Tên] + [Khóa học]</span></div>
+        </div>
+        <button class="copy-btn" onclick="copyAcc('tcb-acc', this)">
+          <i class="fa-regular fa-copy"></i> Sao chép số tài khoản
+        </button>
+      </div>
+
+      <div class="payment-card">
+        <div class="bank-logo mb">MB BANK</div>
+        <h3>Ngân hàng MB Bank</h3>
+        <p>Quét mã QR hoặc chuyển khoản</p>
+        <div class="bank-info">
+          <div class="bank-row"><span class="bl">Chủ tài khoản</span><span class="br">LÊ HOÀNG PHÚ SANG</span></div>
+          <div class="bank-row"><span class="bl">Số tài khoản</span><span class="br" id="mb-acc">210901919</span></div>
+          <div class="bank-row"><span class="bl">Chi nhánh</span><span class="br">TP. Hồ Chí Minh</span></div>
+          <div class="bank-row"><span class="bl">Nội dung CK</span><span class="br">[Tên] + [Khóa học]</span></div>
+        </div>
+        <button class="copy-btn" onclick="copyAcc('mb-acc', this)">
+          <i class="fa-regular fa-copy"></i> Sao chép số tài khoản
+        </button>
+      </div>
+
+    </div>
+    <div class="payment-note">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <strong>Hướng dẫn thanh toán:</strong> Sau khi chuyển khoản, vui lòng chụp màn hình bill và gửi qua <strong>Zalo/FB</strong> để xác nhận đăng ký khóa học. Nội dung chuyển khoản ghi rõ <em>Họ tên + tên khóa học</em> (ví dụ: <em>Nguyen Van A Python CB</em>).
+    </div>
+  </div>
+</section>
+
+<!-- ───── CONTACT ───── -->
+<section id="contact">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#dbeafe;color:#1d4ed8;">Liên hệ</span>
+    <h2 class="section-title">Liên Hệ & Đăng Ký</h2>
+    <div class="divider" style="background:var(--primary)"></div>
+    <div class="contact-grid">
+      <div class="contact-list">
+        <a href="https://zalo.me/0822731025" target="_blank" class="contact-item">
+          <div class="contact-icon zalo"><i class="fa-solid fa-comment-dots"></i></div>
+          <div class="contact-text">
+            <strong>Zalo</strong>
+            <span>0822 731 025 – Nhắn tin tư vấn nhanh</span>
+          </div>
+        </a>
+        <a href="https://facebook.com/sang.phu.9406" target="_blank" class="contact-item">
+          <div class="contact-icon fb"><i class="fa-brands fa-facebook-f"></i></div>
+          <div class="contact-text">
+            <strong>Facebook</strong>
+            <span>facebook.com/sang.phu.9406</span>
+          </div>
+        </a>
+        <a href="mailto:sangphu243@gmail.com" class="contact-item">
+          <div class="contact-icon gmail"><i class="fa-solid fa-envelope"></i></div>
+          <div class="contact-text">
+            <strong>Gmail</strong>
+            <span>sangphu243@gmail.com</span>
+          </div>
+        </a>
+        <a href="tel:0822731025" class="contact-item">
+          <div class="contact-icon phone"><i class="fa-solid fa-phone"></i></div>
+          <div class="contact-text">
+            <strong>Điện thoại</strong>
+            <span>0822 731 025 – Gọi trong giờ hành chính</span>
+          </div>
+        </a>
+        <div style="background:var(--white);border-radius:14px;padding:20px 24px;border:1px solid var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--mid);margin-bottom:8px;"><i class="fa-solid fa-clock" style="color:var(--primary)"></i> &nbsp;Giờ tư vấn & dạy học</div>
+          <div style="font-size:13px;color:var(--soft);line-height:1.9;">
+            Thứ 2 – Thứ 6: <strong style="color:var(--dark)">17:00 – 21:00</strong><br>
+            Thứ 7 – Chủ nhật: <strong style="color:var(--dark)">08:00 – 20:00</strong><br>
+            <span style="color:var(--accent);font-weight:500;">📍 TP. Hồ Chí Minh & Online toàn quốc</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <h3>Gửi Tin Nhắn Đăng Ký</h3>
+        <div class="form-group">
+          <label>Họ và tên</label>
+          <input type="text" id="f-name" placeholder="Nguyễn Văn A">
+        </div>
+        <div class="form-group">
+          <label>Số điện thoại / Zalo</label>
+          <input type="text" id="f-phone" placeholder="09xx xxx xxx">
+        </div>
+        <div class="form-group">
+          <label>Khóa học quan tâm</label>
+          <select id="f-course">
+            <option value="">-- Chọn khóa học --</option>
+            <option>Python Cơ Bản → Nâng Cao</option>
+            <option>SQL Từ Zero Đến Hero</option>
+            <option>APTIS B1 – Đầu vào đại học</option>
+            <option>APTIS B2 – Đầu vào thạc sĩ</option>
+            <option>Combo Python + SQL</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Hình thức học</label>
+          <select id="f-mode">
+            <option>Online (Zoom / Google Meet)</option>
+            <option>Offline tại TP.HCM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ghi chú thêm</label>
+          <textarea id="f-note" placeholder="Trình độ hiện tại, mục tiêu, thời gian rảnh..."></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">
+          <i class="fa-solid fa-paper-plane"></i> Gửi Đăng Ký
+        </button>
+        <div class="success-msg" id="success-msg">
+          ✅ Đã gửi thành công! Phú Sang sẽ liên hệ lại trong vòng 24 giờ.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FOOTER ───── -->
+<footer>
+  <p><strong>LÊ HOÀNG PHÚ SANG</strong> – Gia sư Python | SQL | Tiếng Anh APTIS B1/B2</p>
+  <p style="margin-top:6px;">Trường Đại học Greenwich Việt Nam · TP. Hồ Chí Minh</p>
+  <div class="footer-links">
+    <a href="#about">Giới thiệu</a>
+    <a href="#skills">Kỹ năng</a>
+    <a href="#aptis">APTIS</a>
+    <a href="#courses">Khóa học</a>
+    <a href="#payment">Thanh toán</a>
+    <a href="#contact">Liên hệ</a>
+  </div>
+  <p style="margin-top:16px;font-size:11px;">© 2025 Lê Hoàng Phú Sang. Mọi quyền được bảo lưu.</p>
+</footer>
+
+<script>
+function copyAcc(id, btn) {
+  const text = document.getElementById(id).textContent.replace(/\s/g, '');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Đã sao chép!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '<i class="fa-regular fa-copy"></i> Sao chép số tài khoản';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+function submitForm() {
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const course = document.getElementById('f-course').value;
+  if (!name || !phone || !course) {
+    alert('Vui lòng điền đầy đủ Họ tên, Số điện thoại và Khóa học.');
+    return;
+  }
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.getElementById('f-course').value = '';
+  document.getElementById('f-note').value = '';
+}
+</script>
+</body>
+</html>
